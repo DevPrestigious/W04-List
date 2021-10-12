@@ -148,18 +148,9 @@ public:
    //
    // Construct
    //
-   Node()
-   {
-      pNext = pPrev = this;
-   }
-   Node(const T& data)
-   {
-      pNext = pPrev = this;
-   }
-   Node(T&& data)
-   {
-      pNext = pPrev = this;
-   }
+   Node(               ) : pNext(nullptr), pPrev(nullptr), data(               ) { } // Default constructor
+   Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data           ) { } // Copy Constructor
+   Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) { } // Move Constructor
 
    //
    // Member Variables
