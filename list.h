@@ -161,79 +161,6 @@ public:
    Node * pPrev;       // pointer to previous node
 };
 
-/*************************************************
- * LIST ITERATOR
- * Iterate through a List, non-constant version
- ************************************************/
-template <typename T, typename A>
-class list <T, A> :: iterator
-{
-public:
-   // constructors, destructors, and assignment operator
-   iterator()  
-   {
-      p = new list <T, A> ::Node;
-   }
-   iterator(Node * pRHS)
-   {
-      p = new list <T, A> ::Node;
-   }
-   iterator(const iterator  & rhs) 
-   {
-      p = new list <T, A> ::Node;
-   }
-   iterator & operator = (const iterator & rhs)
-   {
-      return *this;
-   }
-   
-   // equals, not equals operator
-   bool operator == (const iterator & rhs) const { return true; }
-   bool operator != (const iterator & rhs) const { return true; }
-
-   // dereference operator, fetch a node
-   T & operator * ()
-   {
-      return *(new T);
-   }
-
-   // postfix increment
-   iterator operator ++ (int postfix)
-   {
-      return *this;
-   }
-
-   // prefix increment
-   iterator & operator ++ ()
-   {
-      return *this;
-   }
-   
-   // postfix decrement
-   iterator operator -- (int postfix)
-   {
-      return *this;
-   }
-
-   // prefix decrement
-   iterator & operator -- ()
-   {
-      return *this;
-   } 
-
-   // two friends who need to access p directly
-   friend iterator list <T, A> :: insert(iterator it, const T &  data);
-   friend iterator list <T, A> :: insert(iterator it,       T && data);
-   friend iterator list <T, A> :: erase(const iterator & it);
-
-#ifdef DEBUG // make this visible to the unit tests
-public:
-#else
-private:
-#endif
-
-   typename list <T, A> :: Node * p;
-};
 
 /*****************************************
  * LIST :: NON-DEFAULT constructors
@@ -473,4 +400,77 @@ void swap(list <T, A> & lhs, list <T, A> & rhs)
 
 }; // namespace custom
 
+/*************************************************
+ * LIST ITERATOR
+ * Iterate through a List, non-constant version
+ ************************************************/
+template <typename T, typename A>
+class list <T, A> ::iterator
+{
+public:
+    // constructors, destructors, and assignment operator
+    iterator()
+    {
+        p = new list <T, A> ::Node;
+    }
+    iterator(Node* pRHS)
+    {
+        p = new list <T, A> ::Node;
+    }
+    iterator(const iterator& rhs)
+    {
+        p = new list <T, A> ::Node;
+    }
+    iterator& operator = (const iterator& rhs)
+    {
+        return *this;
+    }
+
+    // equals, not equals operator
+    bool operator == (const iterator& rhs) const { return true; }
+    bool operator != (const iterator& rhs) const { return true; }
+
+    // dereference operator, fetch a node
+    T& operator * ()
+    {
+        return *(new T);
+    }
+
+    // postfix increment
+    iterator operator ++ (int postfix)
+    {
+        return *this;
+    }
+
+    // prefix increment
+    iterator& operator ++ ()
+    {
+        return *this;
+    }
+
+    // postfix decrement
+    iterator operator -- (int postfix)
+    {
+        return *this;
+    }
+
+    // prefix decrement
+    iterator& operator -- ()
+    {
+        return *this;
+    }
+
+    // two friends who need to access p directly
+    friend iterator list <T, A> ::insert(iterator it, const T& data);
+    friend iterator list <T, A> ::insert(iterator it, T&& data);
+    friend iterator list <T, A> ::erase(const iterator& it);
+
+#ifdef DEBUG // make this visible to the unit tests
+public:
+#else
+private:
+#endif
+
+    typename list <T, A> ::Node* p;
+};
 
