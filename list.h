@@ -79,10 +79,7 @@ public:
       numElements = 99;
       pHead = pTail = new list <T, A> ::Node();
    }
-   ~list()                                                      // Deconstructor
-   { 
-
-   }
+   ~list() { clear(); }                                         // Deconstructor (edited by steve)
    
    //
    // Assign -- Steve
@@ -194,52 +191,61 @@ public:
     // constructors, destructors, and assignment operator
     iterator()
     {
-        p = new list <T, A> ::Node;
+        p = nullptr;
     }
     iterator(Node* pRHS)
     {
-        p = new list <T, A> ::Node;
+        p = pRHS;
     }
     iterator(const iterator& rhs)
     {
-        p = new list <T, A> ::Node;
+        p = rhs.p;
     }
     iterator& operator = (const iterator& rhs)
     {
+        this->p = rhs.p;
         return *this;
     }
 
     // equals, not equals operator
-    bool operator == (const iterator& rhs) const { return true; }
-    bool operator != (const iterator& rhs) const { return true; }
+    bool operator != (const iterator& rhs) const { return (rhs.p != p ? true : false); }
+    bool operator == (const iterator& rhs) const { return (rhs.p == p ? true : false); }
 
     // dereference operator, fetch a node
     T& operator * ()
     {
-        return *(new T);
+        return *(new T); // the version from vector doesn't work here
     }
 
     // postfix increment
     iterator operator ++ (int postfix)
     {
-        return *this;
+        iterator i = p;
+        p++;
+        return i;
     }
 
     // prefix increment
     iterator& operator ++ ()
     {
+        p++;
         return *this;
     }
 
     // postfix decrement
     iterator operator -- (int postfix)
     {
-        return *this;
+        iterator i = p;
+        if (p > 0)
+            p--;
+        return i;
     }
 
     // prefix decrement
     iterator& operator -- ()
     {
+        if (p > 0)
+            p--;
         return *this;
     }
     //
@@ -386,7 +392,14 @@ list <T, A>& list <T, A> :: operator = (const std::initializer_list<T>& rhs)
 template <typename T, typename A> // -- Alex
 void list <T, A> :: clear()
 {
-
+    // added from last week, might not work
+    Node * pDelete = pHead; // redundant for first loop, but oh well
+    while (pHead != nullptr) {
+        pDelete = pHead;
+        pHead = pHead->pNext;
+        delete pDelete;
+    }
+    delete pHead;
 }
 
 /*********************************************
