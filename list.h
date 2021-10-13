@@ -404,7 +404,7 @@ void list <T, A> :: clear()
 }
 
 /*********************************************
- * LIST :: PUSH BACK                            -- Alex
+ * LIST :: PUSH BACK                            -- Alex (stolen by steve)
  * add an item to the end of the list
  *    INPUT  : data to be added to the list
  *    OUTPUT :
@@ -414,11 +414,26 @@ template <typename T, typename A>
 void list <T, A> :: push_back(const T & data)
 {
 
+    Node* pNew = new Node(data);
+
+    if (numElements == 0)
+    {
+        pHead = pTail = pNew;
+    }
+    else
+    {
+        pTail->pNext = pNew;
+        pNew->pPrev = pTail;
+        pTail = pNew;
+    }
+
+    numElements++;
 }
 
 template <typename T, typename A>
 void list <T, A> ::push_back(T && data)
 {
+
 
 }
 
@@ -432,7 +447,19 @@ void list <T, A> ::push_back(T && data)
 template <typename T, typename A>
 void list <T, A> :: push_front(const T & data)
 {
+    Node* pNew = new Node(data);
 
+    if (numElements == 0)
+    {
+        pHead = pTail = pNew;
+    }
+    else
+    {
+        pHead->pPrev = pNew;
+        pNew->pNext = pHead;
+        pHead = pNew;
+    }
+    numElements++;
 }
 
 template <typename T, typename A>
@@ -452,7 +479,12 @@ void list <T, A> ::push_front(T && data)
 template <typename T, typename A>
 void list <T, A> ::pop_back()
 {
-
+    // Added by steve, but doesn't seem to change %
+    if (!empty())
+    {
+        pTail->pPrev = pTail;
+        numElements--;
+    }
 }
 
 /*********************************************
@@ -465,7 +497,12 @@ void list <T, A> ::pop_back()
 template <typename T, typename A>
 void list <T, A> ::pop_front()
 {
-
+    // Added by steve, but doesn't seem to change %
+    if (!empty())
+    {
+        pHead->pNext = pHead;
+        numElements--;
+    }
 }
 
 /*********************************************
@@ -478,7 +515,7 @@ void list <T, A> ::pop_front()
 template <typename T, typename A>
 T & list <T, A> :: front()
 {
-   return *(new T);
+    return pHead->data; // Added by steve, seems to work fine
 }
 
 /*********************************************
@@ -491,7 +528,7 @@ T & list <T, A> :: front()
 template <typename T, typename A>
 T & list <T, A> :: back()
 {
-   return *(new T);
+    return pTail->data; // Added by steve, seems to work fine
 }
 
 
@@ -520,7 +557,34 @@ template <typename T, typename A>
 typename list <T, A> :: iterator list <T, A> :: insert(list <T, A> :: iterator it,
                                                  const T & data) 
 {
-   return end();
+    Node* pNew = new Node(data);
+
+    if (numElements == 0)
+    {
+        pHead = pTail = pNew;
+    }
+
+    if (it.p)
+    {
+        pNew->pNext = it.p;
+        pNew->pPrev = it.p->pPrev;
+        it.p->pPrev = pNew;
+
+        if (pNew->pPrev)
+            pNew->pPrev->pNext = pNew;
+
+        if (it.p == pHead)
+            pHead = pNew;
+    }
+    else
+    {
+        pTail->pNext = pNew;
+        pNew->pPrev = pTail;
+        pTail = pNew;
+    }
+
+    numElements++;
+    return iterator(pNew);
 }
 
 
