@@ -101,14 +101,14 @@ public:
    // //// THIS IS DONE
    
    //
-   // Access -- Jon
+   // Access
    //
    
    T & front();
    T & back();
 
    //
-   // Insert -- Alex
+   // Insert
    //
    
    void push_front(const T &  data);
@@ -119,7 +119,7 @@ public:
    iterator insert(iterator it,       T && data);
 
    //
-   // Remove -- Shaun
+   // Remove
    //
    
    void pop_back();
@@ -131,8 +131,8 @@ public:
    // Status
    //
    
-   bool empty()  const { return numElements > 0; }
-   size_t size() const { return numElements;   }
+   bool empty()  const { return numElements; } // if num elements == 0 false, >0 true
+   size_t size() const { return numElements; }
 
 #ifdef DEBUG // make this visible to the unit tests
 public:
