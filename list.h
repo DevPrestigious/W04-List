@@ -389,7 +389,7 @@ list <T, A>& list <T, A> :: operator = (const std::initializer_list<T>& rhs)
  *     OUTPUT :
  *     COST   : O(n) with respect to the number of nodes
  *********************************************/
-template <typename T, typename A> // -- Alex
+template <typename T, typename A> // -- Alex (stolen by steve)
 void list <T, A> :: clear()
 {
     while (pHead != NULL)
