@@ -189,18 +189,9 @@ public:
     //
 
     // constructors, destructors, and assignment operator
-    iterator()
-    {
-        p = nullptr;
-    }
-    iterator(Node* pRHS)
-    {
-        p = pRHS;
-    }
-    iterator(const iterator& rhs)
-    {
-        p = rhs.p;
-    }
+    iterator(){ p = nullptr; }
+    iterator(Node* pRHS) { p = pRHS; }
+    iterator(const iterator& rhs) { p = rhs.p; }
     iterator& operator = (const iterator& rhs)
     {
         this->p = rhs.p;
