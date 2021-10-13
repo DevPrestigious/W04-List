@@ -392,14 +392,15 @@ list <T, A>& list <T, A> :: operator = (const std::initializer_list<T>& rhs)
 template <typename T, typename A> // -- Alex
 void list <T, A> :: clear()
 {
-    // added from last week, might not work
-    Node * pDelete = pHead; // redundant for first loop, but oh well
-    while (pHead != nullptr) {
-        pDelete = pHead;
+    while (pHead != NULL)
+    {
+        Node* pDelete = pHead;
         pHead = pHead->pNext;
         delete pDelete;
     }
-    delete pHead;
+    // Set list default values
+    pTail = NULL;
+    numElements = 0;
 }
 
 /*********************************************
