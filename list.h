@@ -326,7 +326,14 @@ list <T, A>& list <T, A> :: operator = (list <T, A> && rhs)
     /*list.move-assignment(rhs)
      clear()
      swap(rhs)*/
-    clear();
+    this->clear();
+
+    if (this->capacity() < rhs.size())
+        this->resize(rhs.size());
+
+    for (int i = 0; i < rhs.size(); i++)
+        this->insert(rhs.data[i]);
+
     return *this;
 }
 
@@ -340,14 +347,13 @@ list <T, A>& list <T, A> :: operator = (list <T, A> && rhs)
 template <typename T, typename A> // --Shaun
 list <T, A> & list <T, A> :: operator = (list <T, A> & rhs)
 {
-    
     /*list.copy-assignment(rhs)
          clear()
          FOREACH it IN rhs
          push_back(*it)
          RETURN this*/
-    
-   return *this;
+
+    return *this;
 }
 
 /**********************************************
@@ -418,7 +424,6 @@ void list <T, A> :: clear()
 template <typename T, typename A> 
 void list <T, A> :: push_back(const T & data)
 {
-
     Node* pNew = new Node(data);
 
     if (numElements == 0)
