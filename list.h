@@ -205,7 +205,7 @@ public:
     // dereference operator, fetch a node
     T& operator * ()
     {
-        return *(new T); // the version from vector doesn't work here
+        return p->data;
     }
 
     // postfix increment
