@@ -458,25 +458,38 @@ template <typename T, typename A>
 void list <T, A> :: push_front(const T & data)
 {
     Node* pNew = new Node(data);
-
-    if (numElements == 0)
-    {
-        pHead = pTail = pNew;
+    if (pNew != nullptr) {
+        if (numElements == 0)
+        {
+            pHead = pTail = pNew;
+        }
+        else
+        {
+            pHead->pPrev = pNew;
+            pNew->pNext = pHead;
+            pHead = pNew;
+        }
+        numElements++;
     }
-    else
-    {
-        pHead->pPrev = pNew;
-        pNew->pNext = pHead;
-        pHead = pNew;
-    }
-    numElements++;
 }
 
 template <typename T, typename A>
 void list <T, A> ::push_front(T && data)
 {
-
-
+    Node* pNew = new Node(data);
+    if (pNew != nullptr) {
+        if (numElements == 0)
+        {
+            pHead = pTail = std::move(pNew);
+        }
+        else
+        {
+            pNew->pNext = pHead;
+            pHead->pPrev = std::move(pNew);
+            pHead = std::move(pNew);
+        }
+        numElements++;
+    }
 }
 
 
