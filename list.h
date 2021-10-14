@@ -79,7 +79,7 @@ public:
       numElements = 99;
       pHead = pTail = new list <T, A> ::Node();
    }
-   ~list() { if(!empty())clear(); }                                         // Deconstructor (edited by steve)
+   ~list() { }                                         // Deconstructor (edited by steve)
    
    //
    // Assign -- Steve
@@ -131,8 +131,8 @@ public:
    // Status
    //
    
-   bool empty()  const { return numElements; } // if num elements == 0 false, >0 true
-   size_t size() const { return numElements; }
+   bool empty()  const { return numElements; } 
+   size_t size() const { return numElements > 0 ? numElements : 0 ; } 
 
 #ifdef DEBUG // make this visible to the unit tests
 public:
@@ -403,19 +403,15 @@ list <T, A>& list <T, A> :: operator = (const std::initializer_list<T>& rhs)
 template <typename T, typename A> // -- Alex (stolen by steve)
 void list <T, A> :: clear()
 {
-<<<<<<< HEAD
-    
-    while (pHead != nullptr)
-    {
-=======
-    while (pHead != NULL)
-    { 
->>>>>>> 6620f8dcbf1253ebc530c6c955a07a0d833c30eb
-        Node* pDelete = pHead;
-        pHead = pHead->pNext;
-        delete pDelete;
+    if (numElements > 0) {
+        while (pHead != nullptr)
+        {
+            Node* pDelete = pHead;
+            pHead = pHead->pNext;
+            if(pDelete)
+                delete pDelete;
+        }
     }
-    
     // Set list default values
     pHead = pTail = NULL;
     numElements = 0;
