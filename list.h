@@ -263,8 +263,21 @@ private:
 template <typename T, typename A>
 list <T, A> ::list(size_t num, const T & t, const A& a) 
 {
-   numElements = 99;
-   pHead = pTail = new list <T, A> ::Node();
+    // Fill constructor
+    /*IF (num)
+          pHead <- pPrevious <- pNew <- NEW Node(T)
+          pHead.pPrev <- NULL
+          FOR i <-1 … num-1
+            pNew <- NEW Node(T)
+            pNew.pPrev <- pPrev
+            pNew.pPrev.pNext <- pNew
+            pPrevious <- pNew
+
+          pNew.pNext <- NULL
+          pTail <- pNew
+          numElements <- num*/
+
+
 }
 
 /*****************************************
@@ -313,7 +326,8 @@ list <T, A>& list <T, A> :: operator = (list <T, A> && rhs)
     /*list.move-assignment(rhs)
      clear()
      swap(rhs)*/
-   return *this;
+    clear();
+    return *this;
 }
 
 /**********************************************
@@ -457,6 +471,7 @@ template <typename T, typename A>
 void list <T, A> ::push_front(T && data)
 {
 
+
 }
 
 
@@ -470,10 +485,10 @@ void list <T, A> ::push_front(T && data)
 template <typename T, typename A>
 void list <T, A> ::pop_back()
 {
-    // Added by steve, but doesn't seem to change %
+    // Added by steve, but doesn't seem to change %. Must need to use allocator
     if (!empty())
     {
-        pTail->pPrev = pTail;
+        pTail = pTail->pPrev;
         numElements--;
     }
 }
@@ -488,10 +503,10 @@ void list <T, A> ::pop_back()
 template <typename T, typename A>
 void list <T, A> ::pop_front()
 {
-    // Added by steve, but doesn't seem to change %
+    // Added by steve, but doesn't seem to change %. Must need to use allocator
     if (!empty())
     {
-        pHead->pNext = pHead;
+        pHead = pHead->pNext;
         numElements--;
     }
 }
@@ -615,6 +630,9 @@ void swap(list <T, A> & lhs, list <T, A> & rhs)
      rhs.numElements <- numElements
      numElements <- tempElements
     */
+    list <T> test = std::move(lhs);
+    lhs = std::move(rhs);
+    rhs = std::move(test);
 }
 
 }; // namespace custom
