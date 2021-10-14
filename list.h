@@ -80,6 +80,7 @@ public:
       pHead = pTail = new list <T, A> ::Node();
    }
    ~list() { clear(); }                                         // Deconstructor (edited by steve)
+   ~list() { if(!empty())clear(); }                                         // Deconstructor (edited by steve)
    
    //
    // Assign -- Steve
@@ -403,15 +404,21 @@ list <T, A>& list <T, A> :: operator = (const std::initializer_list<T>& rhs)
 template <typename T, typename A> // -- Alex (stolen by steve)
 void list <T, A> :: clear()
 {
+<<<<<<< HEAD
     
     while (pHead != nullptr)
     {
+=======
+    while (pHead != NULL)
+    { 
+>>>>>>> 6620f8dcbf1253ebc530c6c955a07a0d833c30eb
         Node* pDelete = pHead;
         pHead = pHead->pNext;
         delete pDelete;
     }
+    
     // Set list default values
-    pTail = NULL;
+    pHead = pTail = NULL;
     numElements = 0;
 }
 
@@ -540,6 +547,7 @@ void list <T, A> ::pop_front()
 template <typename T, typename A>
 T & list <T, A> :: front()
 {
+    
     return pHead->data; // Added by steve, seems to work fine
 }
 
