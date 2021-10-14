@@ -79,7 +79,6 @@ public:
       numElements = 99;
       pHead = pTail = new list <T, A> ::Node();
    }
-   ~list() { clear(); }                                         // Deconstructor (edited by steve)
    ~list() { if(!empty())clear(); }                                         // Deconstructor (edited by steve)
    
    //
