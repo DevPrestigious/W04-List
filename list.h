@@ -403,7 +403,7 @@ list <T, A>& list <T, A> :: operator = (const std::initializer_list<T>& rhs)
 template <typename T, typename A> // -- Alex (stolen by steve)
 void list <T, A> :: clear()
 {
-    while (pHead != NULL)
+    while (pHead != nullptr) 
     { 
         Node* pDelete = pHead;
         pHead = pHead->pNext;
