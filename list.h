@@ -14,7 +14,7 @@
  *        List         : A class that represents a List
  *        ListIterator : An iterator through List
  * Author
- *    Stephen Costigan
+ *    Stephen Costigan, Alexander Dohms
  ************************************************************************/
 
 #pragma once
@@ -403,7 +403,8 @@ list <T, A>& list <T, A> :: operator = (const std::initializer_list<T>& rhs)
 template <typename T, typename A> // -- Alex (stolen by steve)
 void list <T, A> :: clear()
 {
-    while (pHead != NULL)
+    
+    while (pHead != nullptr)
     {
         Node* pDelete = pHead;
         pHead = pHead->pNext;
@@ -566,6 +567,22 @@ T & list <T, A> :: back()
 template <typename T, typename A>
 typename list <T, A> :: iterator  list <T, A> :: erase(const list <T, A> :: iterator & it)
 {
+//    list.erase(it)
+//    itNext <- end()
+//    IF it.p.pNext Take care of any nodes after ÔitÕ it.p.pNext.pPrev <- it.p.pPrev
+//    itNext <- it.p.pNext ELSE
+//    pTail <- pTail.pPrev
+//    IF it.p.pPrev
+//    it.p.pPrev.pNext <- it.p.pNext
+//    ELSE
+//    pHead <- pHead.pNext
+//    DELETE it.p
+//    numElements--
+//    RETURN itNext
+//    Take care of any nodes before ÔitÕ
+//    Delete then node
+    
+    
    return end();
 }
 
